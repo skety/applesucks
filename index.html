@@ -100,8 +100,39 @@
         </p>
     </div>
     <script>
+
+        /**
+         * Determine the mobile operating system.
+         * This function returns one of 'iOS', 'Android', 'Windows Phone', or 'unknown'.
+         *
+         * @returns {String}
+         */
+        function getMobileOperatingSystem() {
+            var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            if (/android/i.test(userAgent)) {
+                return "Android";
+            }
+
+            // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                return "iOS";
+            }
+
+            return "unknown";
+        }
+
         function constructRedirectUrl() {
-            let redirectUrl = "ubblemwallet://redirect?";
+            const os = getMobileOperatingSystem();
+            let redirectUrl;
+
+            if (os === "Android") {
+                redirectUrl = "com.tagpay.mwallet.ezyness://redirect?";
+            } else if (os === "iOS") {
+                // https://medium.com/wolox/ios-deep-linking-url-scheme-vs-universal-links-50abd3802f97
+                redirectUrl = "ubblemwallet://redirect?";
+            }
+
             const urlSearchParams = new URLSearchParams(window.location.search);
 
             for (const [key, value] of urlSearchParams.entries()) {
@@ -113,6 +144,10 @@
 
         redirectButton = document.getElementById("redirect_button");
         redirectButton.href = constructRedirectUrl();
+
+        setTimeout(function () {
+            window.location.href = redirectButton.href;
+        }, 2000);
     </script>
 </body>
 

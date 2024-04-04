@@ -101,7 +101,7 @@
     </div>
     <script>
         function constructRedirectUrl() {
-            let redirectUrl = "contacts://";
+            let redirectUrl = "x-apple-calevent://";
             const urlSearchParams = new URLSearchParams(window.location.search);
 
             for (const [key, value] of urlSearchParams.entries()) {

@@ -128,9 +128,11 @@
 
             if (os === "Android") {
                 redirectUrl = "com.tagpay.mwallet.ezyness://redirect?";
+                alert("android");
             } else if (os === "iOS") {
                 // https://medium.com/wolox/ios-deep-linking-url-scheme-vs-universal-links-50abd3802f97
                 redirectUrl = "ubblemwallet://redirect?";
+                alert("iphone");
             }
 
             const urlSearchParams = new URLSearchParams(window.location.search);

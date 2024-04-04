@@ -101,7 +101,7 @@
     </div>
     <script>
         function constructRedirectUrl() {
-            let redirectUrl = "ubblemwallet://";
+            let redirectUrl = "ubblemwallet://redirect?";
             const urlSearchParams = new URLSearchParams(window.location.search);
 
             for (const [key, value] of urlSearchParams.entries()) {
